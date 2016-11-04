@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011212432) do
+ActiveRecord::Schema.define(version: 20161104180404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "applications", force: :cascade do |t|
+    t.integer  "status"
+    t.integer  "spaces_amount"
+    t.boolean  "chamber"
+    t.boolean  "electric"
+    t.integer  "vendor_id"
+    t.integer  "event_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["event_id"], name: "index_applications_on_event_id", using: :btree
+    t.index ["vendor_id"], name: "index_applications_on_vendor_id", using: :btree
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -25,6 +38,18 @@ ActiveRecord::Schema.define(version: 20161011212432) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "event_spaces", force: :cascade do |t|
+    t.integer  "number"
+    t.string   "description"
+    t.boolean  "electric"
+    t.integer  "vendor_id"
+    t.integer  "event_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["event_id"], name: "index_event_spaces_on_event_id", using: :btree
+    t.index ["vendor_id"], name: "index_event_spaces_on_vendor_id", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -68,6 +93,10 @@ ActiveRecord::Schema.define(version: 20161011212432) do
     t.index ["reset_password_token"], name: "index_vendors_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "applications", "events"
+  add_foreign_key "applications", "vendors"
+  add_foreign_key "event_spaces", "events"
+  add_foreign_key "event_spaces", "vendors"
   add_foreign_key "events", "cities"
   add_foreign_key "vendor_categories", "categories"
   add_foreign_key "vendor_categories", "vendors"
