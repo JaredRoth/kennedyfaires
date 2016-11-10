@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Admin logs in" do
   scenario "it should redirect them to their dashboard" do
     expect(Admin.all.count).to eq(0)
-    admin = create(:admin)
+    admin = Admin.create(username: "test")
     expect(Admin.all.count).to eq(1)
 
     visit root_path
