@@ -8,7 +8,14 @@
   </head>
 
   <body>
-    <%= render partial: "partials/nav" %>
+    <% if current_admin%>
+      <%= render partial: "partials/admin_nav" %>
+    <% else %>
+      <%= render partial: "partials/nav" %>
+    <% end %>
+    <% flash.each do |type, message| %>
+      <%= content_tag :div, message.html_safe, class: "flash-#{type}" %>
+    <% end %>
     <%= yield %>
   </body>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
