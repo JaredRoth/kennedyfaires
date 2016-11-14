@@ -13,12 +13,13 @@ RSpec.feature "Admin logs in" do
 
     click_on "Log in"
 
-    expect(path).to eq admin_dashboard_path
+    expect(current_path).to eq admin_root_path
     expect(page).to have_content "Signed in successfully"
     expect(page).to have_content "Logout"
     expect(page).not_to have_content "Login"
     expect(Admin.all.count).to eq 1
   end
+
   scenario "with incorrect info" do
     expect(Admin.all.count).to eq 0
     admin = Admin.create(email: "test@test.com", password: "testtest")
@@ -31,7 +32,7 @@ RSpec.feature "Admin logs in" do
 
     click_on "Log in"
 
-    expect(path).to eq new_admin_session_path
-    expect(page).to have_content "Successfully Logged In"
+    expect(current_path).to eq new_admin_session_path
+    expect(page).to have_content "Invalid Email or password"
   end
 end
