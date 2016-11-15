@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Admin tries to log in" do
-  let!(:admin) { create(:admin) }
+  let!(:admin) { create(:admin_with_events, events_count: 3) }
   context "with correct info" do
     scenario 'is redirected to dashboard with confirmation' do
       visit new_admin_session_path

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110190057) do
+ActiveRecord::Schema.define(version: 20161115182540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,12 +75,16 @@ ActiveRecord::Schema.define(version: 20161110190057) do
   end
 
   create_table "events", force: :cascade do |t|
+    t.date     "date"
     t.integer  "year"
     t.string   "season"
     t.string   "title"
+    t.string   "description"
     t.integer  "city_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "admin_id"
+    t.index ["admin_id"], name: "index_events_on_admin_id", using: :btree
     t.index ["city_id"], name: "index_events_on_city_id", using: :btree
   end
 
@@ -128,6 +132,7 @@ ActiveRecord::Schema.define(version: 20161110190057) do
   add_foreign_key "applications", "vendors"
   add_foreign_key "event_spaces", "events"
   add_foreign_key "event_spaces", "vendors"
+  add_foreign_key "events", "admins"
   add_foreign_key "events", "cities"
   add_foreign_key "vendor_categories", "categories"
   add_foreign_key "vendor_categories", "vendors"
