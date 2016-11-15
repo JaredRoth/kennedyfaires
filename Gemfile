@@ -18,6 +18,8 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.5'
   gem 'capybara'
+  gem 'launchy'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -28,7 +30,6 @@ group :development do
 end
 
 group :test do
-  gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'mocha'

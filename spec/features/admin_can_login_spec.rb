@@ -1,16 +1,15 @@
 require "rails_helper"
 
-feature "Admin logs in" do
-  let!(:admin) { Admin.create(email: "test@test.com", password: "correct") }
+feature "Admin tries to log in" do
+  let!(:admin) { create(:admin) }
   context "with correct info" do
-    it 'redirects to dashboard and displays confirmation' do
+    scenario 'is redirected to dashboard with confirmation' do
       visit new_admin_session_path
 
-      fill_in :admin_email, with: "test@test.com"
-      fill_in :admin_password, with: "correct"
+      fill_in :admin_email, with: "admin@example.com"
+      fill_in :admin_password, with: "correct_password"
 
       click_on "Log in"
-
       expect(current_path).to eq admin_root_path
       expect(page).to have_content "Signed in successfully"
       expect(page).to have_content "Logout"
@@ -19,10 +18,10 @@ feature "Admin logs in" do
   end
 
   context "with incorrect info" do
-    it 'stays on the page and displays warning' do
+    scenario 'stays on the page and displays warning' do
       visit new_admin_session_path
 
-      fill_in :admin_email, with: "test@test.com"
+      fill_in :admin_email, with: "admin@example.com"
       fill_in :admin_password, with: "wrong"
 
       click_on "Log in"
