@@ -1,4 +1,4 @@
 class Category < ApplicationRecord
-  has_many :vendor_categories
-  has_many :vendors, through: :vendor_categories
+  has_many :business_categories
+  has_many :businesses, through: :business_categories
 end

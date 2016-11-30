@@ -1,4 +1,4 @@
 class VendorCategory < ApplicationRecord
-  belongs_to :vendor
+  belongs_to :business
   belongs_to :category
 end
