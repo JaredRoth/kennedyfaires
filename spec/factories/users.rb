@@ -10,13 +10,13 @@ FactoryGirl.define do
       admin true
 
       # user_with_posts will create post data after the user has been created
-      factory :admin_with_events do
+      factory :admin_with_faires do
         transient do
-          events_count 1
+          faires_count 1
         end
 
         after(:create) do |admin, evaluator|
-          create_list(:event, evaluator.events_count, user: admin)
+          create_list(:faire, evaluator.faires_count, user: admin)
         end
       end
     end

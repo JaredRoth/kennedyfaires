@@ -1,6 +1,5 @@
 class Event < ApplicationRecord
-  belongs_to :city
-  belongs_to :user
+  belongs_to :faire
 
   has_many :event_spaces
   has_many :applications

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130184147) do
+ActiveRecord::Schema.define(version: 20161206220924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,16 +76,22 @@ ActiveRecord::Schema.define(version: 20161130184147) do
 
   create_table "events", force: :cascade do |t|
     t.date     "date"
-    t.integer  "year"
-    t.string   "season"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "faire_id"
+    t.index ["faire_id"], name: "index_events_on_faire_id", using: :btree
+  end
+
+  create_table "faires", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
+    t.string   "season"
     t.integer  "city_id"
+    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "user_id"
-    t.index ["city_id"], name: "index_events_on_city_id", using: :btree
-    t.index ["user_id"], name: "index_events_on_user_id", using: :btree
+    t.index ["city_id"], name: "index_faires_on_city_id", using: :btree
+    t.index ["user_id"], name: "index_faires_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -124,6 +130,7 @@ ActiveRecord::Schema.define(version: 20161130184147) do
   add_foreign_key "businesses", "users"
   add_foreign_key "event_spaces", "events"
   add_foreign_key "event_spaces", "users"
-  add_foreign_key "events", "cities"
-  add_foreign_key "events", "users"
+  add_foreign_key "events", "faires"
+  add_foreign_key "faires", "cities"
+  add_foreign_key "faires", "users"
 end

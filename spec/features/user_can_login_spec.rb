@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "User tries to log in" do
   context "with correct admin info" do
-    let(:admin) { create(:admin_with_events, events_count: 3) }
+    let(:admin) { create(:admin_with_faires, faires_count: 3) }
     scenario 'is redirected to admin dashboard with confirmation' do
       visit new_user_session_path
 
@@ -16,27 +16,25 @@ feature "User tries to log in" do
       expect(page).to have_content "Logout"
       expect(page).not_to have_content "Login"
 
-      within("ul.events li:nth-child(1)") do
-        expect(page).to have_content admin.events.first.season
-        expect(page).to have_content admin.events.first.year
-        expect(page).to have_content admin.events.first.city.name
-        expect(page).to have_content admin.events.first.title
+      within("ul.faires li:nth-child(1)") do
+        expect(page).to have_content admin.faires.first.season
+        expect(page).to have_content admin.faires.first.city.name
+        expect(page).to have_content admin.faires.first.title
       end
-      within("ul.events li:nth-child(3)") do
-        expect(page).to have_content admin.events.last.season
-        expect(page).to have_content admin.events.last.year
-        expect(page).to have_content admin.events.last.city.name
-        expect(page).to have_content admin.events.last.title
+      within("ul.faires li:nth-child(3)") do
+        expect(page).to have_content admin.faires.last.season
+        expect(page).to have_content admin.faires.last.city.name
+        expect(page).to have_content admin.faires.last.title
       end
 
-      expect(page).not_to have_css "ul.events li:nth-child(4)"
+      expect(page).not_to have_css "ul.faires li:nth-child(4)"
     end
-    scenario "does not have access to other admins' events" do
+    scenario "does not have access to other admins' faires" do
       sign_in create :admin
 
       visit admin_path
 
-      within("ul.events") do
+      within("ul.faires") do
         expect(page).not_to have_css "li"
       end
     end

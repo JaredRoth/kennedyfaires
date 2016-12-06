@@ -1,14 +1,14 @@
 require "rails_helper"
 
-feature "Admin can create new events" do
+feature "Admin can create new faires" do
   let(:admin) { create :admin }
-  scenario 'events display on their dashboard' do
+  scenario 'faires display on their dashboard' do
     sign_in  admin
 
     visit admin_path
 
-    click_on "Create New Event"
+    click_on "Create New Faire"
 
-    expect(current_path).to eq new_admin_event_path
+    expect(current_path).to eq new_admin_faire_path
   end
 end

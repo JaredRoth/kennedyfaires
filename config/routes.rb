@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, path: ''
 
   namespace :admin do
-    root 'events#index', as:'/'
-    resources :events, except: :index
+    root 'faires#index', as:'/'
+    resources :faires, except: :index
   end
 end
