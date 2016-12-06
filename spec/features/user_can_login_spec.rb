@@ -15,6 +15,30 @@ feature "User tries to log in" do
       expect(page).to have_content "Signed in successfully"
       expect(page).to have_content "Logout"
       expect(page).not_to have_content "Login"
+
+      within("ul.events li:nth-child(1)") do
+        expect(page).to have_content admin.events.first.season
+        expect(page).to have_content admin.events.first.year
+        expect(page).to have_content admin.events.first.city.name
+        expect(page).to have_content admin.events.first.title
+      end
+      within("ul.events li:nth-child(3)") do
+        expect(page).to have_content admin.events.last.season
+        expect(page).to have_content admin.events.last.year
+        expect(page).to have_content admin.events.last.city.name
+        expect(page).to have_content admin.events.last.title
+      end
+
+      expect(page).not_to have_css "ul.events li:nth-child(4)"
+    end
+    scenario "does not have access to other admins' events" do
+      sign_in create :admin
+
+      visit admin_path
+
+      within("ul.events") do
+        expect(page).not_to have_css "li"
+      end
     end
   end
 
@@ -30,9 +54,9 @@ feature "User tries to log in" do
 
       expect(page).to have_content "Signed in successfully"
       expect(page).to have_content "Logout"
-      expect(page).not_to have_content "Login"
       # As app is built out, build out this section with elements (not/)expected to be found for vendors
 
+      expect(page).not_to have_content "Login"
     end
   end
 
