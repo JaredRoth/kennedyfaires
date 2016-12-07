@@ -3,7 +3,6 @@ class CreateFaires < ActiveRecord::Migration[5.0]
     create_table :faires do |t|
       t.string :title
       t.string :description
-      t.string :season
       t.references :city, foreign_key: true
       t.references :user, foreign_key: true
 

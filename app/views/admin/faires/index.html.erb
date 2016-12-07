@@ -1,7 +1,6 @@
 <ul class="faires">
   <% current_user.faires.each do |faire| %>
     <li>
-      <%= faire.season %>
       <%= faire.city.name %>
       <%= faire.title %>
     </li>

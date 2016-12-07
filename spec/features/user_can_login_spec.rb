@@ -17,12 +17,10 @@ feature "User tries to log in" do
       expect(page).not_to have_content "Login"
 
       within("ul.faires li:nth-child(1)") do
-        expect(page).to have_content admin.faires.first.season
         expect(page).to have_content admin.faires.first.city.name
         expect(page).to have_content admin.faires.first.title
       end
       within("ul.faires li:nth-child(3)") do
-        expect(page).to have_content admin.faires.last.season
         expect(page).to have_content admin.faires.last.city.name
         expect(page).to have_content admin.faires.last.title
       end

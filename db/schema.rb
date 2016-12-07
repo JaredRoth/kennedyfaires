@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 20161206220924) do
   create_table "faires", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
-    t.string   "season"
     t.integer  "city_id"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
