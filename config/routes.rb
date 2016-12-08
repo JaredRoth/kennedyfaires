@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'faires#index', as:'/'
     resources :faires, except: :index
-    resources :events, only: [:create, :new]
+    resources :events, except: [:index, :show, :destroy]
   end
 end

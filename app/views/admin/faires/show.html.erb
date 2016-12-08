@@ -1,0 +1,8 @@
+<ul class="events">
+  <% @faire.events.each do |event| %>
+    <li id="event-<%= event.id %>">
+      <%= "#{event.date.strftime("%b %Y")} #{@faire.city.name} #{event.title}" %>
+      <%= link_to "Change Event Date or Title", edit_admin_event_path(event) %>
+    </li>
+  <% end %>
+</ul>

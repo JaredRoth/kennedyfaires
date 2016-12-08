@@ -1,11 +1,1 @@
-<%= form_for [:admin, @event] do |f| %>
-  <div class="input-field">
-     <%= f.collection_select :faire_id, Faire.all, :id, :full_title, { prompt: "Which Faire is this?" } %>
-  </div>
-
-  <div class="input-field">
-    <%= date_select :event, :date %>
-  </div>
-
-  <%= f.submit "Add This Event" %>
-<% end %>
+<%= render partial: "partials/admin/event_form", locals: { submit_text: "Add This Event" } %>

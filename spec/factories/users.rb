@@ -19,6 +19,16 @@ FactoryGirl.define do
           create_list(:faire, evaluator.faires_count, user: admin)
         end
       end
+
+      factory :admin_with_events do
+        transient do
+          faires_count 1
+        end
+
+        after(:create) do |admin, evaluator|
+          create_list(:faire_with_events, evaluator.faires_count, user: admin)
+        end
+      end
     end
   end
 end

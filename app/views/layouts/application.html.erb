@@ -9,7 +9,7 @@
 
   <body>
     <% if current_user.try(:admin?)%>
-      <%= render partial: "partials/admin_nav" %>
+      <%= render partial: "partials/admin/nav" %>
     <% else %>
       <%= render partial: "partials/nav" %>
     <% end %>

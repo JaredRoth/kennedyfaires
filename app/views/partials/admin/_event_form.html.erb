@@ -1,0 +1,16 @@
+<%= form_for [:admin, @event] do |f| %>
+  <div class="input-field">
+     <%= f.collection_select :faire_id, Faire.all, :id, :full_title, { prompt: "Which Faire is this?" } %>
+  </div>
+
+  <div class="input-field">
+    <%= date_select :event, :date %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :does_this_event_have_an_alternate_title? %>
+    <%= f.text_field :alternate_title %>
+  </div>
+
+  <%= f.submit submit_text %>
+<% end %>
