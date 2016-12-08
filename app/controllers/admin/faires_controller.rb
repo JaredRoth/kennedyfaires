@@ -2,6 +2,10 @@ class Admin::FairesController < Admin::BaseController
   def index
   end
 
+  def show
+    @faire = Faire.find(params[:id])
+  end
+
   def new
     @faire = Faire.new
   end

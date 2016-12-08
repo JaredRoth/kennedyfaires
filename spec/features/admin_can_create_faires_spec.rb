@@ -10,8 +10,8 @@ feature "Admin can create new faires" do
     visit admin_path
 
     within("ul.faires li:nth-child(1)") do
-      expect(page).to have_content admin.faires[0].city.name
-      expect(page).to have_content admin.faires[0].title
+      expect(page).to have_content admin.faires.first.city.name
+      expect(page).to have_content admin.faires.first.title
     end
 
     expect(page).not_to have_css "ul.faires li:nth-child(2)"

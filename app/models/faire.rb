@@ -8,4 +8,8 @@ class Faire < ApplicationRecord
   validates :description, presence: true
   validates :city,        presence: true
   validates :user,        presence: true
+
+  def full_title
+    "#{city.name} #{title}"
+  end
 end
