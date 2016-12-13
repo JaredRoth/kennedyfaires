@@ -23,18 +23,18 @@ ActiveRecord::Schema.define(version: 20161208191246) do
     t.integer  "event_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.integer  "user_id"
+    t.integer  "business_id"
+    t.index ["business_id"], name: "index_applications_on_business_id", using: :btree
     t.index ["event_id"], name: "index_applications_on_event_id", using: :btree
-    t.index ["user_id"], name: "index_applications_on_user_id", using: :btree
   end
 
   create_table "business_categories", force: :cascade do |t|
     t.integer  "category_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "user_id"
+    t.integer  "business_id"
+    t.index ["business_id"], name: "index_business_categories_on_business_id", using: :btree
     t.index ["category_id"], name: "index_business_categories_on_category_id", using: :btree
-    t.index ["user_id"], name: "index_business_categories_on_user_id", using: :btree
   end
 
   create_table "businesses", force: :cascade do |t|
@@ -69,9 +69,9 @@ ActiveRecord::Schema.define(version: 20161208191246) do
     t.integer  "event_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "user_id"
+    t.integer  "business_id"
+    t.index ["business_id"], name: "index_event_spaces_on_business_id", using: :btree
     t.index ["event_id"], name: "index_event_spaces_on_event_id", using: :btree
-    t.index ["user_id"], name: "index_event_spaces_on_user_id", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -123,13 +123,13 @@ ActiveRecord::Schema.define(version: 20161208191246) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
+  add_foreign_key "applications", "businesses"
   add_foreign_key "applications", "events"
-  add_foreign_key "applications", "users"
+  add_foreign_key "business_categories", "businesses"
   add_foreign_key "business_categories", "categories"
-  add_foreign_key "business_categories", "users"
   add_foreign_key "businesses", "users"
+  add_foreign_key "event_spaces", "businesses"
   add_foreign_key "event_spaces", "events"
-  add_foreign_key "event_spaces", "users"
   add_foreign_key "events", "faires"
   add_foreign_key "faires", "cities"
   add_foreign_key "faires", "users"
