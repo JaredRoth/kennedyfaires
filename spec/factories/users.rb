@@ -1,7 +1,9 @@
 FactoryGirl.define do
   factory :user do
-    email     "user@example.com"
-    password  "correct_password"
+    email      "user@example.com"
+    password   "correct_password"
+    first_name "First"
+    last_name  "Last"
     admin     false
 
   # This will use the User class (Admin would have been guessed)
