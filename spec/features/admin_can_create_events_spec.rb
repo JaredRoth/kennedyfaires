@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Admin can create new events" do
+feature "Admin creates new events" do
   let(:admin) { create :admin_with_faires }
   scenario 'events display on their dashboard' do
     sign_in admin

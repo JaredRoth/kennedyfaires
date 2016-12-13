@@ -1,0 +1,15 @@
+<%= form_for [:admin, @faire] do |f| %>
+  <div class="input-field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="input-field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div class="input-field">
+     <%= f.collection_select :city_id, City.all, :id, :name, { prompt: "City where event is held" } %>
+  </div>
+
+  <%= f.submit submit_text %>
+<% end %>

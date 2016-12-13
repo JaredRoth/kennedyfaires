@@ -20,6 +20,16 @@ class Admin::FairesController < Admin::BaseController
     end
   end
 
+  def edit
+    @faire = Faire.find(params[:id])
+  end
+
+  def update
+    @faire = Faire.find(params[:id])
+    @faire.update(faire_params)
+    redirect_to admin_path
+  end
+
   private
 
   def faire_params

@@ -1,42 +1,42 @@
 require "rails_helper"
 
-feature "Admin can edit existing faires" do
-  let(:admin) { create :admin_with_events, faires_count: 2 }
-  scenario 'changes are reflected' do
+feature "Admin edits existing faires" do
+  let(:admin) { create :admin_with_faires }
+  let!(:city) { create :city }
+  scenario 'appropriate changes are reflected' do
     sign_in admin
-
-    this_event    = admin.events.first
-    initial_year  = this_event.date.year
-    initial_title = this_event.title
-
-    expect(this_event.alternate_title).to be_blank
 
     visit admin_path
 
-    within("ul.faires") do
-      click_on("#{this_event.faire.city.name} #{this_event.faire.title}")
+    this_faire          = admin.faires.first.id
+    initial_title       = admin.faires.first.title
+    initial_description = admin.faires.first.description
+    initial_city        = admin.faires.first.city.name
+
+    within("#faire-#{this_faire}") do
+      click_on("Edit Faire")
     end
 
-    expect(current_path).to eq admin_faire_path(this_event.faire)
+    expect(current_path).to eq edit_admin_faire_path(this_faire)
 
-    within("#event-#{this_event.id}") do
-      click_on "Change Event Date or Title"
-    end
+    fill_in "faire_title", with: "New Title"
+    fill_in "faire_description", with: "New Description"
+    select(city.name, from: 'faire[city_id]')
 
-    expect(current_path).to eq edit_admin_event_path(this_event)
+    click_on "Update Faire"
 
-    fill_in "event_alternate_title", with: "Fall Festival"
-    select(initial_year + 1, from: 'event[date(1i)]')
+    expect(Faire.find(this_faire).title).to eq "New Title"
+    expect(Faire.find(this_faire).description).to eq "New Description"
+    expect(Faire.find(this_faire).city.name).to eq city.name
 
-    click_on "Update Event"
+    expect(current_path).to eq admin_path
 
-    expect(current_path).to eq admin_faire_path(this_event.faire)
+    within("#faire-#{this_faire}") do
+      expect(page).to have_content "New Title"
+      expect(page).to have_content city.name
 
-    within("#event-#{this_event.id}") do
-      expect(page).to have_content initial_year + 1
-      expect(page).not_to have_content initial_year
-      expect(page).to have_content "Fall Festival"
       expect(page).not_to have_content initial_title
+      expect(page).not_to have_content initial_city
     end
   end
 end

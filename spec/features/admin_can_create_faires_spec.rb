@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Admin can create new faires" do
+feature "Admin creates new faires" do
   let(:admin) { create :admin_with_faires }
   scenario 'faires display on their dashboard' do
     create_list :city, 6
