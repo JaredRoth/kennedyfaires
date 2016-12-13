@@ -5,10 +5,18 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <% if current_user.try(:admin?)%>
+      <%= render partial: "partials/admin/nav" %>
+    <% else %>
+      <%= render partial: "partials/nav" %>
+    <% end %>
+    <% flash.each do |type, message| %>
+      <%= content_tag :div, message.html_safe, class: "flash-#{type}" %>
+    <% end %>
     <%= yield %>
   </body>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </html>

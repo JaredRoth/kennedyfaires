@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104180404) do
+ActiveRecord::Schema.define(version: 20161208191246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,84 +20,117 @@ ActiveRecord::Schema.define(version: 20161104180404) do
     t.integer  "spaces_amount"
     t.boolean  "chamber"
     t.boolean  "electric"
-    t.integer  "vendor_id"
     t.integer  "event_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "business_id"
+    t.index ["business_id"], name: "index_applications_on_business_id", using: :btree
     t.index ["event_id"], name: "index_applications_on_event_id", using: :btree
-    t.index ["vendor_id"], name: "index_applications_on_vendor_id", using: :btree
+  end
+
+  create_table "business_categories", force: :cascade do |t|
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "business_id"
+    t.index ["business_id"], name: "index_business_categories_on_business_id", using: :btree
+    t.index ["category_id"], name: "index_business_categories_on_category_id", using: :btree
+  end
+
+  create_table "businesses", force: :cascade do |t|
+    t.text     "business_name"
+    t.text     "product_description"
+    t.text     "street_address"
+    t.text     "city"
+    t.text     "state"
+    t.integer  "zip"
+    t.integer  "user_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["user_id"], name: "index_businesses_on_user_id", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name"
+    t.text     "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "cities", force: :cascade do |t|
-    t.string   "name"
+    t.text     "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "event_spaces", force: :cascade do |t|
     t.integer  "number"
-    t.string   "description"
+    t.text     "description"
     t.boolean  "electric"
-    t.integer  "vendor_id"
     t.integer  "event_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "business_id"
+    t.index ["business_id"], name: "index_event_spaces_on_business_id", using: :btree
     t.index ["event_id"], name: "index_event_spaces_on_event_id", using: :btree
-    t.index ["vendor_id"], name: "index_event_spaces_on_vendor_id", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer  "year"
-    t.string   "season"
-    t.string   "title"
-    t.integer  "city_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["city_id"], name: "index_events_on_city_id", using: :btree
+    t.date     "date"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "faire_id"
+    t.text     "alternate_title"
+    t.index ["faire_id"], name: "index_events_on_faire_id", using: :btree
   end
 
-  create_table "vendor_categories", force: :cascade do |t|
-    t.integer  "vendor_id"
-    t.integer  "category_id"
+  create_table "faires", force: :cascade do |t|
+    t.text     "title"
+    t.text     "description"
+    t.integer  "city_id"
+    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["category_id"], name: "index_vendor_categories_on_category_id", using: :btree
-    t.index ["vendor_id"], name: "index_vendor_categories_on_vendor_id", using: :btree
+    t.index ["city_id"], name: "index_faires_on_city_id", using: :btree
+    t.index ["user_id"], name: "index_faires_on_user_id", using: :btree
   end
 
-  create_table "vendors", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.text     "email",                  default: "",    null: false
+    t.text     "encrypted_password",     default: "",    null: false
+    t.text     "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "business"
-    t.text     "product"
-    t.integer  "phone"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_vendors_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_vendors_on_reset_password_token", unique: true, using: :btree
+    t.text     "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.text     "unconfirmed_email"
+    t.integer  "failed_attempts",        default: 0,     null: false
+    t.text     "unlock_token"
+    t.datetime "locked_at"
+    t.text     "first_name"
+    t.text     "last_name"
+    t.boolean  "admin",                  default: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
+  add_foreign_key "applications", "businesses"
   add_foreign_key "applications", "events"
-  add_foreign_key "applications", "vendors"
+  add_foreign_key "business_categories", "businesses"
+  add_foreign_key "business_categories", "categories"
+  add_foreign_key "businesses", "users"
+  add_foreign_key "event_spaces", "businesses"
   add_foreign_key "event_spaces", "events"
-  add_foreign_key "event_spaces", "vendors"
-  add_foreign_key "events", "cities"
-  add_foreign_key "vendor_categories", "categories"
-  add_foreign_key "vendor_categories", "vendors"
+  add_foreign_key "events", "faires"
+  add_foreign_key "faires", "cities"
+  add_foreign_key "faires", "users"
 end

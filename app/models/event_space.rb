@@ -1,4 +1,4 @@
 class EventSpace < ApplicationRecord
-  belongs_to :vendor
+  belongs_to :business
   belongs_to :event
 end

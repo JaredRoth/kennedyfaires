@@ -17,6 +17,9 @@ gem 'devise'
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.5'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -26,5 +29,11 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :test do
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'mocha'
+  gem 'simplecov', :require => false
+end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

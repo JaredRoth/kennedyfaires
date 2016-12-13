@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :vendors
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: "welcome#index"
+
+  devise_for :users, path: ''
+
+  namespace :admin do
+    root 'faires#index', as:'/'
+    resources :faires, except: :index
+    resources :events, except: [:index, :show, :destroy]
+  end
 end

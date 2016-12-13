@@ -1,0 +1,8 @@
+<ul class="faires">
+  <% current_user.faires.each do |faire| %>
+    <li id="faire-<%= faire.id %>">
+      <%= link_to "#{faire.city.name} #{faire.title}", admin_faire_path(faire) %>
+      <%= link_to "Edit Faire", edit_admin_faire_path(faire) %>
+    </li>
+  <% end %>
+</ul>

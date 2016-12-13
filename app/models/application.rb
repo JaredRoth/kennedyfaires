@@ -1,5 +1,5 @@
 class Application < ApplicationRecord
-  belongs_to :vendor
+  belongs_to :business
   belongs_to :event
 
   enum status: [
