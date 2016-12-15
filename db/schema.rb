@@ -95,12 +95,12 @@ ActiveRecord::Schema.define(version: 20161214170947) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.text     "email",                  default: "", null: false
-    t.text     "encrypted_password",     default: "", null: false
+    t.text     "email",                  default: "",       null: false
+    t.text     "encrypted_password",     default: "",       null: false
     t.text     "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,        null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -109,14 +109,14 @@ ActiveRecord::Schema.define(version: 20161214170947) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.text     "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,  null: false
+    t.integer  "failed_attempts",        default: 0,        null: false
     t.text     "unlock_token"
     t.datetime "locked_at"
     t.text     "first_name"
     t.text     "last_name"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "type"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.string   "type",                   default: "Vendor"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
