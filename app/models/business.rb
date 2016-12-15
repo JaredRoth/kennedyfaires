@@ -1,5 +1,5 @@
 class Business < ApplicationRecord
-  belongs_to :user
+  belongs_to :vendor
   has_many :business_categories
   has_many :categories, through: :business_categories
   has_many :event_spaces
