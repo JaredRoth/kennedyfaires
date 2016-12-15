@@ -1,5 +1,5 @@
 class Business < ApplicationRecord
-  belongs_to :vendor
+  belongs_to :vendor, foreign_key: 'user_id'
   has_many :business_categories
   has_many :categories, through: :business_categories
   has_many :event_spaces
