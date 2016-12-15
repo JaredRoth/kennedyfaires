@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "User tries to log in" do
   context "with correct admin info" do
-    let(:admin) { create(:admin_with_faires, faires_count: 3) }
+    let!(:admin) { create(:admin_with_faires, faires_count: 3) }
     scenario 'is redirected to admin dashboard with confirmation' do
       visit new_user_session_path
 
@@ -27,8 +27,11 @@ feature "User tries to log in" do
 
       expect(page).not_to have_css "ul.faires li:nth-child(4)"
     end
+    let(:empty_admin) { create(:admin) }
     scenario "does not have access to other admins' faires" do
-      sign_in create :admin
+      sign_in empty_admin
+
+      expect(Admin.count).to eq 2
 
       visit admin_path
 
@@ -57,7 +60,7 @@ feature "User tries to log in" do
   end
 
   context "with incorrect info" do
-    let(:admin) { create :admin }
+    let(:admin) { create(:admin) }
     scenario 'stays on the page and displays warning' do
       visit new_user_session_path
 

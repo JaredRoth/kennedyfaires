@@ -1,6 +1,8 @@
 FactoryGirl.define do
   factory :vendor do
-    email      "vendor@example.com"
+    sequence :email do |n|
+      "vendor#{n}@example.com"
+    end
     password   "correct_password"
     first_name "First"
     last_name  "Last"
