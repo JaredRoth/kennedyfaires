@@ -39,12 +39,12 @@ feature "User tries to log in" do
   end
 
   context "with correct non-admin info" do
-    let(:user) { create :user }
+    let(:vendor) { create :vendor }
     scenario 'is redirected to user dashboard with confirmation' do
       visit new_user_session_path
 
-      fill_in :user_email, with: user.email
-      fill_in :user_password, with: user.password
+      fill_in :user_email, with: vendor.email
+      fill_in :user_password, with: vendor.password
 
       click_on "Log in"
 
