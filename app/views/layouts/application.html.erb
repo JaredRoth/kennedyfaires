@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <% if current_user.try(:type) == 'Admin'%>
+    <% if current_user.try(:admin?)%>
       <%= render partial: "partials/admin/nav" %>
     <% else %>
       <%= render partial: "partials/nav" %>
