@@ -4,6 +4,5 @@ FactoryGirl.define do
     password   "correct_password"
     first_name "First"
     last_name  "Last"
-    admin     false
   end
 end
