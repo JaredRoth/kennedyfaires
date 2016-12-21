@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   devise_for :users, path: ''
 
+  resources :businesses, param: :business_name, only: [:index, :show]
+
   namespace :admin do
     root 'faires#index', as:'/'
     resources :faires, except: :index
