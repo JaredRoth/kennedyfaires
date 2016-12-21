@@ -1,0 +1,8 @@
+<ul class="businesses">
+  <% current_user.businesses.each do |business| %>
+    <li id="business-<%= business.id %>">
+      <%= link_to "#{business.business_name}", business_path(business) %>
+      <!-- <%# link_to "Edit this Business", edit_business_path(business) %> -->
+    </li>
+  <% end %>
+</ul>

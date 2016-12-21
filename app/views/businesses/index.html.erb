@@ -1,1 +1,5 @@
-This is the "businesses index" which is where you go if you have multiple businesses
+<% if current_user.businesses.empty? %>
+  Register a business to continue
+<% else %>
+  <%= render partial: "partials/business_list" %>
+<% end %>
