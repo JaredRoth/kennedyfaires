@@ -3,5 +3,6 @@ class BusinessesController < ApplicationController
   end
 
   def show
+
   end
 end

@@ -20,11 +20,11 @@ FactoryGirl.define do
 
     factory :admin_with_events do
       transient do
-        faires_count 1
+        events_count 1
       end
 
       after(:create) do |this_admin, evaluator|
-        create_list(:faire_with_events, evaluator.faires_count, admin: this_admin)
+        create_list(:faire_with_events, evaluator.events_count, admin: this_admin)
       end
     end
   end

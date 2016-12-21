@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Admin edits existing events" do
-  let(:admin) { create :admin_with_events, faires_count: 2 }
+  let(:admin) { create :admin_with_events, events_count: 2 }
   scenario 'appropriate changes are reflected' do
     sign_in admin
 

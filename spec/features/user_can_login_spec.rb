@@ -51,7 +51,7 @@ feature "User tries to log in" do
 
       click_on "Log in"
 
-      expect(current_path).to eq business_path
+      expect(current_path).to eq business_path(vendor.businesses.first)
 
       expect(page).to have_content "Signed in successfully"
       expect(page).to have_content "Logout"
@@ -77,7 +77,7 @@ feature "User tries to log in" do
       expect(page).to have_content "Signed in successfully"
       expect(page).to have_content "Logout"
       expect(page).to have_content "Register a business to continue"
-      expect(page).to_not have_content other_vendor.business.first.business_name
+      expect(page).to_not have_content other_vendor.businesses.first.business_name
 
       expect(page).not_to have_content "Login"
     end
@@ -99,10 +99,10 @@ feature "User tries to log in" do
       expect(page).to have_content "Logout"
 
       within("ul.businesses li:nth-child(1)") do
-        expect(page).to have_content vendor.business.first.business_name
+        expect(page).to have_content vendor.businesses.first.business_name
       end
       within("ul.businesses li:nth-child(2)") do
-        expect(page).to have_content vendor.business.last.business_name
+        expect(page).to have_content vendor.businesses.last.business_name
       end
 
       expect(page).not_to have_content "Login"

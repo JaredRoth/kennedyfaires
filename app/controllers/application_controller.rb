@@ -3,13 +3,24 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    if resource.admin?
+    if resource.try(:admin?)
       admin_path
+    else
+      vendor_home(resource)
+    end
+  end
+
+  def vendor_home(resource)
+    if resource.try(:businesses).try(:count) == 1
+      business_path(resource.businesses.first)
     else
       businesses_path
     end
   end
 
+  def not_found
+    raise ActionController::RoutingError.new("Not Found")
+  end
 
   protected
 
