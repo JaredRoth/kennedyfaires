@@ -50,7 +50,7 @@ feature "User tries to sign up" do
   end
 
   context "all fields valid" do
-    scenario 'redirected to root' do
+    scenario 'redirected to their home page' do
       expect(User.count).to eq 0
       visit root_path
 
@@ -70,7 +70,7 @@ feature "User tries to sign up" do
 
       click_on "Sign up"
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq businesses_path
 
       expect(User.count).to eq 1
 

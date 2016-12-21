@@ -41,7 +41,28 @@ feature "User tries to log in" do
     end
   end
 
-  context "with correct non-admin info" do
+  context "with correct vendor info: single business" do
+    let(:vendor) { create :vendor_with_businesses, businesses_count: 1 }
+    scenario 'is redirected to user dashboard with confirmation' do
+      visit new_user_session_path
+
+      fill_in :user_email, with: vendor.email
+      fill_in :user_password, with: vendor.password
+
+      click_on "Log in"
+
+      expect(current_path).to eq business_path
+
+      expect(page).to have_content "Signed in successfully"
+      expect(page).to have_content "Logout"
+
+
+      expect(page).not_to have_content "Login"
+    end
+  end
+
+  context "with correct vendor info: no business" do
+    let(:other_vendor) { create :vendor_with_businesses, businesses_count: 1 }
     let(:vendor) { create :vendor }
     scenario 'is redirected to user dashboard with confirmation' do
       visit new_user_session_path
@@ -51,9 +72,38 @@ feature "User tries to log in" do
 
       click_on "Log in"
 
+      expect(current_path).to eq businesses_path
+
       expect(page).to have_content "Signed in successfully"
       expect(page).to have_content "Logout"
-      # As app is built out, build out this section with elements (not/)expected to be found for vendors
+      expect(page).to have_content "Register a business to continue"
+      expect(page).to_not have_content other_vendor.business.first.business_name
+
+      expect(page).not_to have_content "Login"
+    end
+  end
+
+  context "with correct vendor info: multiple businesses" do
+    let(:vendor) { create :vendor_with_businesses, businesses_count: 2 }
+    scenario 'is redirected to user dashboard with confirmation' do
+      visit new_user_session_path
+
+      fill_in :user_email, with: vendor.email
+      fill_in :user_password, with: vendor.password
+
+      click_on "Log in"
+
+      expect(current_path).to eq businesses_path
+
+      expect(page).to have_content "Signed in successfully"
+      expect(page).to have_content "Logout"
+
+      within("ul.businesses li:nth-child(1)") do
+        expect(page).to have_content vendor.business.first.business_name
+      end
+      within("ul.businesses li:nth-child(2)") do
+        expect(page).to have_content vendor.business.last.business_name
+      end
 
       expect(page).not_to have_content "Login"
     end
