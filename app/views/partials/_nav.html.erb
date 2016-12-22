@@ -1,4 +1,7 @@
 <% unless request.path == new_user_session_path %>
   <%= link_to_login_or_logout %>
 <% end %>
-Manage more than one Business? <%= link_to "Add Another Here", new_business_path %>
+
+<% if current_user && current_user.businesses.any? %>
+  Manage more than one Business? <%= link_to "Add Another Here", new_business_path %>
+<% end %>
