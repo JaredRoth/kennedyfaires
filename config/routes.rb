@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users, path: ''
 
-  resources :businesses, only: [:index, :show]
+  resources :businesses, only: [:index, :show, :new, :create]
 
   namespace :admin do
     root 'faires#index', as:'/'

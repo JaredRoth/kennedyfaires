@@ -1,5 +1,5 @@
 <% if current_user.businesses.empty? %>
-  Register a business to continue
+  <%= link_to "Register a Business to continue", new_business_path %>
 <% else %>
   <%= render partial: "partials/business_list" %>
 <% end %>

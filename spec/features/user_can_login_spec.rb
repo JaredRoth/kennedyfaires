@@ -76,7 +76,7 @@ feature "User tries to log in" do
 
       expect(page).to have_content "Signed in successfully"
       expect(page).to have_content "Logout"
-      expect(page).to have_content "Register a business to continue"
+      expect(page).to have_content "Register a Business to continue"
       expect(page).to_not have_content other_vendor.businesses.first.business_name
 
       expect(page).not_to have_content "Login"
