@@ -3,19 +3,23 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    if resource.try(:admin?)
+    if resource.admin?
       admin_path
     else
       vendor_home(resource)
     end
   end
 
-  def vendor_home(resource)
-    if resource.try(:businesses).try(:count) == 1
-      business_path(resource.businesses.first)
+  def vendor_home(vendor)
+    if vendor.try(:businesses).try(:count) == 1
+      business_path(vendor.businesses.first)
     else
       businesses_path
     end
+  end
+
+  def require_login
+    redirect_to new_user_session_path unless current_user
   end
 
   def not_found
