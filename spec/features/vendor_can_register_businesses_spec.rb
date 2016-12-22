@@ -14,6 +14,7 @@ feature "Vendor tries to create business" do
       click_on "Register a Business to continue"
 
       expect(current_path).to eq new_business_path
+      expect(page).not_to have_content "Manage more than one Business?"
 
       fill_in :business_business_name,       with: Business.first.business_name
       fill_in :business_product_description, with: "Product Description"
@@ -50,6 +51,7 @@ feature "Vendor tries to create business" do
       click_on "Add Another Here"
 
       expect(current_path).to eq new_business_path
+      expect(page).to have_content "Manage more than one Business?"
 
       fill_in :business_business_name,       with: "Business Name"
       fill_in :business_product_description, with: "Product Description"
@@ -112,6 +114,7 @@ feature "Vendor tries to create business" do
 
       visit business_path(vendor.businesses.first)
 
+      expect(page).to have_content "Manage more than one Business?"
       click_on "Add Another Here"
 
       expect(current_path).to eq new_business_path
