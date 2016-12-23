@@ -5,6 +5,7 @@ class BusinessesController < ApplicationController
   end
 
   def show
+    @business = Business.find(params[:id])
   end
 
   def new
@@ -19,6 +20,16 @@ class BusinessesController < ApplicationController
       flash[:notice] = @business.errors.full_messages.join(", ")
       render :new
     end
+  end
+
+  def edit
+    @business = Business.find(params[:id])
+  end
+
+  def update
+    @business = Business.find(params[:id])
+    @business.update(business_params)
+    redirect_to business_path(@business)
   end
 
   private
