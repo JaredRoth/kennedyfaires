@@ -1,5 +1,11 @@
 <% if current_user.businesses.count > 1 %>
   <%= link_to "View all your Businesses", businesses_path %>
 <% end %>
+<%= @business.business_name %>
+<%= @business.product_description %>
+<%= @business.street_address %>
+<%= @business.city %>
+<%= @business.state %>
+<%= @business.zip %>
 <%= link_to "Edit this Business", edit_business_path(@business) %>
 This is the "business show" which is where you go if you only have one business
