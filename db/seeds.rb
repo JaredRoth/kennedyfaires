@@ -16,6 +16,8 @@ cities = City.create([
   {name: 'Vista'}
 ])
 
+
+
 if Rails.env == "development"
   admin = Admin.create( first_name: "Fake", last_name: "Roth",   email: "admin@email.com",  password: "password")
 
@@ -31,7 +33,12 @@ if Rails.env == "development"
     {date: Date.today + 2, faire: faires[1], alternate_title: "Fall Festival"}
   ])
 
-  vendor = Vendor.create(first_name: "Fake", last_name: "Vendor", email: "vendor@email.com", password: "password")
+  single = Vendor.create(first_name: "Fake", last_name: "Vendor", email: "vendor@email.com", password: "password")
 
-  Business.create(business_name: "Tara's Treasures", product_description: "Homemade Crafts", street_address: "123 Main Street", city: "Anytown", state: "CA", zip: 12345, vendor: vendor)
+  Business.create(business_name: "Tara's Treasures", product_description: "Homemade Crafts", street_address: "123 Main Street", city: "Anytown", state: "CA", zip: 12345, vendor: single)
+
+  double = Vendor.create(first_name: "Fake", last_name: "Vendor", email: "double@email.com", password: "password")
+
+  Business.create(business_name: "First Business", product_description: "Homemade Crafts", street_address: "123 Main Street", city: "Anytown", state: "CA", zip: 12345, vendor: double)
+  Business.create(business_name: "Second Business", product_description: "Homemade Crafts", street_address: "123 Main Street", city: "Anytown", state: "CA", zip: 12345, vendor: double)
 end
