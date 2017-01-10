@@ -8,7 +8,7 @@ class Event < ApplicationRecord
   has_many :space_businesses, through: :event_spaces, source: :business
   has_many :applied_businesses, through: :applications, source: :business
 
-  validates :date,  presence: true
+  validates :date,  presence: true, uniqueness: { scope: :faire }
   validates :faire, presence: true
 
   def title
