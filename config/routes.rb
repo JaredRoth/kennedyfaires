@@ -5,9 +5,13 @@ Rails.application.routes.draw do
 
   resources :businesses, only: [:index, :show, :new, :create, :edit, :update]
 
+
   namespace :admin do
     root 'faires#index', as:'/'
     resources :faires, except: :index
     resources :events, except: [:index, :show, :destroy]
   end
+
+  get "/:name", to: "cities#show", as: :city
+
 end
