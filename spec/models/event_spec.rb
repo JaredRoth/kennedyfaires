@@ -18,11 +18,11 @@ RSpec.describe Event, type: :model do
       @event = Event.first
     end
 
-    it "#title - happy path" do
+    it "#title - uses faire title if no alternate specified" do
       expect(@event.title).to eq("Street Faire")
     end
 
-    it "#title - sad path" do
+    it "#title - alternate overrides faire title if specified" do
       @event.update(alternate_title: "something cool")
       @event.reload
       expect(@event.title).to eq("something cool")
