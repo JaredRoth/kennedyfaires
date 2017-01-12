@@ -12,11 +12,11 @@ RSpec.describe Faire, type: :model do
   end
 
   context "methods" do
-    it "#full_title" do
+    it "#full_title - adds the name of the city to the title" do
       user = create(:admin)
       faire = create(:faire, admin: user)
 
-      expect(faire.full_title).to include("Street Faire")
+      expect(faire.full_title).to include(faire.city.name)
     end
   end
 
