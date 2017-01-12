@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :event do
-    date Date.today
+    sequence :date do |n|
+      Date.today + n
+    end
   end
 end

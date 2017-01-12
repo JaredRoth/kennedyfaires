@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   resources :businesses, only: [:index, :show, :new, :create, :edit, :update]
 
+  resources :events, only: [] do
+    resources :applications, only: [:new, :create]
+  end
 
   namespace :admin do
     root 'faires#index', as:'/'
