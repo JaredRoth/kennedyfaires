@@ -4,12 +4,12 @@
     <li id="faire-<%= faire.id %>">
       <p><%= faire.description %></p>
       <%= faire.full_title %>
-      <% if current_user %>
+      <% if current_user && current_user.businesses.any? %>
         <% faire.events.each do |event| %>
           <%= link_to "Apply for #{event.date} show now!", new_event_application_path(event) %>
         <% end %>
       <% else %>
-        Please register or sign in to apply to events
+        Please sign in and make sure you have registered a business profile in order to apply to events
       <% end %>
     </li>
   <% end %>

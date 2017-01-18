@@ -38,7 +38,7 @@ feature "Vendor tries to apply to event" do
     scenario 'is instructed to sign in' do
       visit city_path(faire.city.name)
 
-      expect(page).to have_content "Please register or sign in to apply to events"
+      expect(page).to have_content "Please sign in and make sure you have registered a business profile in order to apply to events"
       expect(page).to_not have_content "Apply for #{faire.events.first.date} show now!"
       expect(page).to_not have_content "Apply for #{faire.events.second.date} show now!"
     end
