@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe BusinessesController, type: :controller do
   before do
-    @user = create(:user)
+    @user = create(:vendor)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
   end
 
