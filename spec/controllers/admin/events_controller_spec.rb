@@ -13,7 +13,6 @@ RSpec.describe Admin::EventsController, type: :controller do
   end
 
   it "POST#create - happy path" do
-
     attrs = attributes_for(:event, faire_id: @faire.id)
     post :create, params: { event: attrs }
     expect(response).to redirect_to admin_faire_path(@faire)
