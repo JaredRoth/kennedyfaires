@@ -15,6 +15,9 @@ feature "Vendor tries to apply to event" do
       expect(current_path).to eq new_event_application_path(faire.events.second)
 
       # fill in required fields
+      fill_in :number_of_booths, with: 1
+      choose "Yes"
+      choose "No"
           # test that each event only has/displays/requires its fields
 
       # check redirect and display on proper submit
